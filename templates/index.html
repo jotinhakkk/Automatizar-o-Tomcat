@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executar Servidor Tomcat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Executar Servidor Tomcat</h1>
+        <p>Gerencie o servidor Tomcat com os botões abaixo.</p>
+     
+
+        <a href="/start-bat" class="btn" id="start-btn">Iniciar Servidor</a>
+        <a href="/stop-bat" class="btn btn-danger" id="stop-btn">Parar Servidor</a>
+
+        <div class="status" id="status"></div>
+
+    </div>
+
+    <script>
+        document.getElementById('start-btn').addEventListener('click', async (event) => {
+            event.preventDefault();
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = 'Iniciando o servidor...';
+            try {
+                const response = await fetch('/start-bat');
+                const result = await response.text();
+                statusDiv.textContent = result;
+            } catch (error) {
+                statusDiv.textContent = 'Erro ao se conectar ao servidor.';
+            }
+        });
+
+        document.getElementById('stop-btn').addEventListener('click', async (event) => {
+            event.preventDefault();
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = 'Parando o servidor...';
+            try {
+                const response = await fetch('/stop-bat');
+                const result = await response.text();
+                statusDiv.textContent = result;
+            } catch (error) {
+                statusDiv.textContent = 'Erro ao se conectar ao servidor.';
+            }
+        });
+    </script>
+</body>
+</html>
